@@ -1,0 +1,11 @@
+# Official Ramekin firmware for one board: gokrazy, the kernel and ramekind,
+# with no project. Anyone can flash it; devices learn their project when
+# they're claimed (ramekin device claim) and follow this firmware's channel.
+board: r76s
+releases:
+  github: ascension-association/firmware.r76s
+  branch: main
+signing:
+  key: keys/firmware-sign.key       # secret: never commit it
+  pubkey: keys/firmware-sign.pub   # devices and projects trust this key
+channels: [stable]
