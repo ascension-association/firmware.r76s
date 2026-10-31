@@ -1,21 +1,23 @@
 # Ramekin firmware for the NanoPi R76S
 
-Official [Ramekin](https://github.com/ascension-association/ramekin) firmware for the FriendlyElec NanoPi R76S (RK3576): gokrazy, the kernel ([kernel.r76s](https://github.com/ascension-association/kernel.r76s)) and ramekind, the Ramekin device agent. It contains no app and no project, so anyone can flash it and use it for their own project.
+Official [Ramekin](https://github.com/ascension-association/ramekin) firmware for the FriendlyElec NanoPi R76S (RK3576): gokrazy, the kernel ([kernel.r76s](https://github.com/ascension-association/kernel.r76s)), ramekind (the Ramekin device agent) and [gk-lockscreen](https://github.com/ascension-association/gk-lockscreen) for the HDMI screen. It contains no app and no project, so anyone can flash it and use it for their own project.
 
 ## Use it
 
 1. Flash the boot and root partition images from the [latest release](https://github.com/ascension-association/firmware.r76s/releases), or build the image yourself with `gok`.
-2. Boot the device on your network. It starts **unclaimed** and shows a 6-digit pairing code on its console.
+2. Boot the device on your network. It starts **unclaimed** and shows a 6-digit pairing code on its HDMI screen ("Pairing code 239748"). Once it's claimed, the screen shows its IP address.
 3. In your Ramekin project, point `ramekin.yaml` at this firmware:
    ```yaml
    firmware:
      github: ascension-association/firmware.r76s
      board: r76s
    ```
-4. Claim the device. It takes your project's signing key and settings, and from then on installs your app releases:
+4. Claim the device. It takes your project's signing key, settings and fleet key, so it can install your current app release right away:
    ```sh
    ramekin device claim kitchen-01 <its-ip> --health-http http://127.0.0.1/
    ```
+
+To hand a device to another project, or start over, `ramekin device release <name>` factory-resets it: it keeps this firmware and shows a new pairing code.
 
 Claimed devices follow this repository's `stable` channel (`r76s/stable.json` on `main`), and install new firmware with a test boot: they keep it only if they come up healthy.
 
