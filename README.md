@@ -4,7 +4,11 @@ Official [Ramekin](https://github.com/ascension-association/ramekin) firmware fo
 
 ## Use it
 
-1. Flash the boot and root partition images from the [latest release](https://github.com/ascension-association/firmware.r76s/releases), or build the image yourself with `gok`.
+1. Flash the disk image from the [latest release](https://github.com/ascension-association/firmware.r76s/releases) to a microSD card of 2 GB or more:
+   ```sh
+   curl -LO https://github.com/ascension-association/firmware.r76s/releases/latest/download/r76s.img.gz
+   gunzip -c r76s.img.gz | sudo dd of=/dev/sdX bs=4M conv=fsync status=progress
+   ```
 2. Boot the device on your network. It starts **unclaimed** and shows a 6-digit pairing code on its HDMI screen ("Pairing code 239748"). Once it's claimed, the screen shows its IP address.
 3. In your Ramekin project, point `ramekin.yaml` at this firmware:
    ```yaml
@@ -17,9 +21,16 @@ Official [Ramekin](https://github.com/ascension-association/ramekin) firmware fo
    ramekin device claim kitchen-01 <its-ip> --health-http http://127.0.0.1/
    ```
 
+5. Optional: to run without the SD card, install onto the board's eMMC. The device keeps its identity and app, then powers off. Remove the card and power it on.
+   ```sh
+   ramekin device install kitchen-01 --to emmc --overwrite   # --overwrite erases FriendlyElec's preinstalled OS
+   ```
+
+The image is 1.25 GB. On first boot the device grows its storage (`/perm`) to fill the card, or the eMMC after an install.
+
 To hand a device to another project, or start over, `ramekin device release <name>` factory-resets it: it keeps this firmware and shows a new pairing code.
 
-Claimed devices follow this repository's `stable` channel (`r76s/stable.json` on `main`), and install new firmware with a test boot: they keep it only if they come up healthy.
+Claimed devices follow this repository's `stable` channel (`r76s/stable.json` on `main`), and install new firmware with a test boot: they keep it only if they come up healthy. An update restarts the device two or three times (into the new image, then once more to confirm it, or back to the old one), so its app is briefly unavailable a few times.
 
 ## Trust
 
