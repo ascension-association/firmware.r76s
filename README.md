@@ -1,6 +1,6 @@
 # Ramekin firmware for the NanoPi R76S
 
-Official [Ramekin](https://github.com/ascension-association/ramekin) firmware for the FriendlyElec NanoPi R76S (RK3576): gokrazy, the kernel ([kernel.r76s](https://github.com/ascension-association/kernel.r76s)), ramekind (the Ramekin device agent) and [gk-lockscreen](https://github.com/ascension-association/gk-lockscreen) for the HDMI screen. It contains no app and no project, so anyone can flash it and use it for their own project.
+Official [Ramekin](https://github.com/ascension-association/ramekin) firmware for the [FriendlyElec NanoPi R76S](https://www.friendlyelec.com/index.php?route=product/product&product_id=308): gokrazy, the kernel ([kernel.r76s](https://github.com/ascension-association/kernel.r76s)), ramekind (the Ramekin device agent) and [gk-lockscreen](https://github.com/ascension-association/gk-lockscreen) for the HDMI screen. It contains no app and no project, so anyone can flash it and use it for their own project.
 
 ## Use it
 
