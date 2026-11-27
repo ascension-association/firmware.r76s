@@ -1,0 +1,41 @@
+{
+    "DeviceType": "rock64",
+    "EEPROMPackage": "",
+    "Environment": [
+        "GOOS=linux",
+        "GOARCH=arm64"
+    ],
+    "FirmwarePackage": "",
+    "Hostname": "r76s",
+    "InternalCompatibilityFlags": {},
+    "KernelPackage": "github.com/ascension-association/kernel.r76s",
+    "PackageConfig": {
+        "github.com/ascension-association/ramekin/cmd/ramekind": {
+            "CommandLineFlags": [
+                "-bridge=br0=eth0,eth1"
+            ],
+            "ExtraFileContents": {
+                "/etc/ramekin/device.json": "{\n  \"signing_pubkey\": \"\",\n  \"update\": {\n    \"enabled\": false\n  },\n  \"firmware\": {\n    \"version\": \"1.0.17\",\n    \"url\": \"https://raw.githubusercontent.com/ascension-association/firmware.r76s/main/r76s\",\n    \"signing_pubkey\": \"-----BEGIN PUBLIC KEY-----\\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFa1yGdCVBDKhju+NNfGMCuPIn2iE\\nq1+0Fe/rTXZACQtDKoDsC4Syg4dzD95PgHhBl/XP5Bk+Oa/I+TIPYtOoEg==\\n-----END PUBLIC KEY-----\\n\"\n  },\n  \"container\": {},\n  \"health\": {}\n}"
+            }
+        },
+        "github.com/gokrazy/gokrazy/cmd/dhcp": {
+            "CommandLineFlags": [
+                "-interface=br0"
+            ]
+        },
+        "github.com/gokrazy/gokrazy/cmd/randomd": {
+            "ExtraFileContents": {
+                "/etc/machine-id": "4f2a93f2624a4f7d84f63d7e76dd3ffc\n"
+            }
+        }
+    },
+    "Packages": [
+        "github.com/ascension-association/ramekin/cmd/ramekind",
+        "github.com/ascension-association/gk-lockscreen"
+    ],
+    "SerialConsole": "disabled",
+    "Update": {
+        "HTTPPort": "8181",
+        "NoPassword": true
+    }
+}

@@ -46,10 +46,17 @@ The kernel has bridge netfilter (`CONFIG_BRIDGE_NETFILTER`), with `bridge-nf-cal
 
 ## Maintainers
 
-`firmware.yaml` describes the build. The gokrazy instance is `~/gokrazy/firmware.r76s`, and the signing key is `keys/firmware-sign.key`, which is never committed. Back it up: firmware can't be published for these devices without it.
+`firmware.yaml` describes the build. The gokrazy instance is in this repository, in [`gokrazy/firmware.r76s`](gokrazy/firmware.r76s):
+
+- `config.json` lists the packages and their settings: `ramekind -bridge=br0=eth0,eth1` and gokrazy's DHCP client on `br0` (see [Network](#network)). Each build stamps the firmware version into it, so commit it with the channel update.
+- `builddir` pins each package's version: Ramekin and the kernel by release tag, so builds don't depend on local checkouts.
+
+The signing key is `keys/firmware-sign.key`, which is never committed. Back it up: firmware can't be published for these devices without it.
 
 ```sh
-ramekin firmware publish --version 1.0.1
+ramekin firmware publish --version 1.0.1 --gokrazy-dir gokrazy
 ```
+
+To build with a new Ramekin or kernel, tag a release of it, then pin it, e.g. `go get github.com/ascension-association/ramekin/cmd/ramekind@v0.3.14` in `gokrazy/firmware.r76s/builddir/github.com/ascension-association/ramekin/cmd/ramekind`.
 
 The kernel lives on the device's single boot partition, so a broken kernel can't be rolled back. Test new kernels on a device before publishing them.
