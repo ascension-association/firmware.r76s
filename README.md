@@ -32,6 +32,12 @@ To hand a device to another project, or start over, `ramekin device release <nam
 
 Claimed devices follow this repository's `stable` channel (`r76s/stable.json` on `main`), and install new firmware with a test boot: they keep it only if they come up healthy. An update restarts the device two or three times (into the new image, then once more to confirm it, or back to the old one), so its app is briefly unavailable a few times.
 
+## Network
+
+Both ethernet ports are in a bridge, `br0`, which gets the device's address from DHCP and keeps `eth0`'s MAC address, so the device keeps its DHCP lease. With one cable, in either port, the device works like a single-port box. With a cable in each port, it forwards between them like a two-port switch, so an app can filter traffic in the wire between a router and the LAN. Spanning tree is on, so two cables into the same switch don't create a loop.
+
+The kernel has bridge netfilter (`CONFIG_BRIDGE_NETFILTER`), with `bridge-nf-call-iptables` on by default. An app that routes traffic back out of the bridge with one cable, as ARP steering does, should turn it off: on this kernel, most of those routed packets are lost while it's on.
+
 ## Trust
 
 - **Firmware:** releases are signed with the key in [`keys/firmware-sign.pub`](keys/firmware-sign.pub), and devices refuse anything else. Releases aren't encrypted: they contain no secrets.
